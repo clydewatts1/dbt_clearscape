@@ -1,0 +1,10 @@
+
+version: 2
+sources:
+    - name: clearscape_tests
+      schema: demo_user
+      config:
+        enabled: true
+      tables:
+        - name: antiselect_test
+

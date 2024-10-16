@@ -1,0 +1,4 @@
+{
+    "dbt.lineage.showNonSelectEdges": true,
+    "dbt.enableNewLineagePanel": true
+}

@@ -1,0 +1,24 @@
+version: 2
+
+macros:
+# The macros section is used to define reusable code blocks that can be used in models, analyses, and other macros.
+# Macros are defined in .sql files in the macros/ directory of your dbt project.
+# Full documentation: https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros
+# Antiselect
+# The Antiselect macro is used to exclude columns from a table or view.
+#Antiselect (
+#ON { table | view | (query) }
+#USING
+#Exclude ({ 'exclude_column' | exclude_column_range }[,...])
+#)
+  - name: Antiselect
+    description: Clearscape's Antiselect macro
+    docs:
+      show: true 
+    arguments:
+      - name: 'data'
+        type: 'string'
+        description: 'The table or view to exclude columns from'
+      - name: 'exclude'
+        type: 'string or list'
+        description: 'The columns to exclude from the table or view'
