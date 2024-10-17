@@ -7,4 +7,5 @@ sources:
         enabled: true
       tables:
         - name: antiselect_test
+        - name: ville_temperature
 
