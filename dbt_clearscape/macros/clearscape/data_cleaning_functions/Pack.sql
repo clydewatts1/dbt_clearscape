@@ -13,44 +13,37 @@ OutputColumn ('output_column')
 [ ColCast ({'true'|'t'|'yes'|'y'|'1'|'false'|'f'|'no'|'n'|'0'}) ]
 )
 #}
-{% macro Pack(data, target_columns, delimiter, include_column_name, output_column, accumulate, col_cast) %}
-{# Check if all parameters are defined set variable #}
-{% set no_optional = False %}
-{% set no_optional = True if target_columns is not none or 
-                             delimiter is not none or 
-                             include_column_name is not none or 
-                             output_column is not none or 
-                             accumulate is not none or 
-                             col_cast is not none %}
-{% set data = data if data is not none else '' %}
-{% set target_columns = target_columns if target_columns is not none else '[1:1]' %}
-{% set delimiter = delimiter if delimiter is not none else ',' %}
-{% set include_column_name = include_column_name if include_column_name is not none else 'false' %}
-{% set output_column = output_column if output_column is not none else 'packed' %}
-{% set accumulate = accumulate if accumulate is not none else '[]' %}
-{% set col_cast = col_cast if col_cast is not none else 'false' %}
+{% macro Pack(data) %}
+
 Pack (
   ON {{ data }}
-{%- if no_optional -%}
-USING
-{%- endif -%}
-{%- if target_columns is not none -%}
-  TargetColumns ('{{ target_columns }}')
-{%- endif -%}
-{%- if delimiter is not none -%}
-  Delimiter ('{{ delimiter }}')
-{%- endif -%}
-{%- if include_column_name is not none -%}
-  IncludeColumnName ('{{ include_column_name }}')
-{%- endif -%}
-{%- if output_column is not none -%}
-  OutputColumn ('{{ output_column }}')
-{%- endif -%}
-{%- if accumulate is not none -%}
-  Accumulate ('{{accumulate}}')
-{%- endif -%}
-{%- if col_cast is not none -%}
-  ColCast ('{{ col_cast }}')
-{%- endif -%}
+  {# if all variables not set #}
+  {% if model.config.delimiter is none and model.config.output_column is none and model.config.include_column_name is none and model.config.target_columns is none and model.config.accumulate is none %}
+    USING
+    {% endif %}
+  {% if model.config.delimiter is not none %}
+  Delimiter ({{model.config.delimiter}})
+  {% endif %}
+  {% if model.config.output_column is not none %}
+  OutputColumn ( {{model.config.output_column}})
+  {% endif %}
+  {% if model.config.include_column_name is not none %}
+  IncludeColumnName ({{model.config.include_column_name}} )
+  {% endif %}
+  {% if model.config.target_columns is not none %}
+  TargetColumns (
+        {% for column in  model.config.target_columns %}
+    {{ column }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+                )
+    {% endif %}
+    {% if model.config.accumulate is not none %}
+  Accumulate (
+            {% for column in  model.config.accumulate %}
+                {{ column }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+            )
+    {% endif %}
 )
+
 {% endmacro %}

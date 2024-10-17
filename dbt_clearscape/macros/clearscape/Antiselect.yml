@@ -19,6 +19,4 @@ macros:
       - name: 'data'
         type: 'string'
         description: 'The table or view to exclude columns from'
-      - name: 'exclude'
-        type: 'string or list'
-        description: 'The columns to exclude from the table or view'
+

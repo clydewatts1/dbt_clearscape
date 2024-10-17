@@ -1,0 +1,17 @@
+models:
+  - name: pack_example01
+    description: This will exclude columns from the pack clearscape table function
+    config:
+        delimeter: ','
+        output_column: 'packed_data'
+        include_column_name: 'true'
+        target_columns: ['[1:4]']
+        accumulate: 'sn'
+
+  - name: pack_example02
+    description: This will exclude columns from the pack clearscape table function
+    config:
+        delimeter: '|'
+        output_column: 'packed_data'
+        include_column_name: 'false'
+        target_columns: ['city', 'state', 'period', 'temp_f']

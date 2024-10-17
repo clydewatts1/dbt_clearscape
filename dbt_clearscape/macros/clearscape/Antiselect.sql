@@ -11,10 +11,25 @@ Example:
     {% set antiselect = Antiselect('source_data', 'id') %}
     {{ antiselect }}
 #}
-{% macro Antiselect(data, exclude='[1:1]') %}
+/*
+ Show all model variables
+ {{ model }}
+
+    AntiSelect (
+        ON { table | view | (query) }
+        USING
+        Exclude ({ 'exclude_column' | exclude_column_range }[,...])
+    )
+*/
+
+{% macro Antiselect(data) %}
 Antiselect (
-  ON {{ data }}
+  ON {{ data }} 
 USING
-     Exclude ({{ exclude }})
+     Exclude (
+        {%- for column in model.config.exclude -%}
+            '{{ column }}'{% if not loop.last %},{% endif %}
+        {%- endfor -%}
+     )
 )    
 {% endmacro %}
