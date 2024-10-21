@@ -1,0 +1,14 @@
+DROP TABLE housing_sample;
+DROP TABLE diabetes_sample;
+DROP TABLE input_table;
+DROP TABLE model_table;
+DROP TABLE titanicDataset;
+DROP TABLE xgb_diabetes_sample;
+DROP TABLE xgb_housing_sample;
+DROP TABLE housing_full;
+DROP TABLE xgboostTrain;
+DROP TABLE xgboostTest;
+DROP TABLE xgboost_classification_model;
+DROP TABLE xgb_out_class;
+DROP TABLE xgb_out_reg;
+DROP TABLE xgb_out;

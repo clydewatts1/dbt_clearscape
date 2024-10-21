@@ -1,0 +1,10 @@
+DROP TABLE housing_train;
+DROP TABLE housing_train_attribute;
+DROP TABLE housing_train_parameter;
+DROP TABLE housing_train_segment;
+DROP TABLE TE_titanic_train;
+DROP TABLE categoryTable;
+DROP TABLE betaEncFitTbl;
+DROP TABLE dirichletEncFitTbl;
+DROP TABLE GIGEncFitTbl;
+DROP TABLE temporal_orientation_segment;

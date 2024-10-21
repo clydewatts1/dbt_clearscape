@@ -1,0 +1,15 @@
+DROP TABLE titanic_train;
+DROP TABLE scale_input_table;
+DROP TABLE scale_input_partitioned;
+DROP TABLE scale_parameters;
+DROP TABLE scale_attributes;
+DROP TABLE scaleFitOut;
+DROP TABLE scaleFitOut_partitioned;
+DROP TABLE scale_input_sparse;
+DROP TABLE scale_input_part_sparse;
+DROP TABLE sparseScaleFitOut;
+DROP TABLE sparseScaleFitOutPartitioned;
+DROP TABLE insect_sprays;
+DROP TABLE insect2Cols;
+DROP TABLE example_table;
+DROP TABLE boston2cols;

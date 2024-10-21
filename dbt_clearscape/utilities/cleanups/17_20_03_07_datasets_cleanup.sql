@@ -1,0 +1,13 @@
+DROP TABLE ordinal_titanic_dataset;
+DROP TABLE catTable;
+DROP TABLE ordinal_titanic_fit_output;
+DROP TABLE onehot_titanic_dataset;
+DROP TABLE categoryTable;
+DROP TABLE onehot_titanic_fit_output;
+DROP TABLE onehot_sparse_input;
+DROP TABLE onehot_sparse_fit;
+DROP TABLE cars_hist;
+DROP TABLE minmaxTable;
+DROP TABLE wordEmb_inputTable;
+DROP TABLE wordEmb_inputTable2;
+DROP TABLE wordEmbedModel;
