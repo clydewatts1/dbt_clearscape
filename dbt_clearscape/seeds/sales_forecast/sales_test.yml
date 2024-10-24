@@ -1,0 +1,24 @@
+# seed for features,stores,test_sales_forecast,train_sales_forecast
+version: 2
+#Store,Dept,Date,IsHoliday
+seeds:
+- name: sales_test
+  index: "PRIMARY INDEX (Store, Date)"
+  description: >
+    This contains the sales data for the test set
+  config:
+    schema: RAW
+    enabled: true
+    columns:
+    - name: Store
+      description: store number
+      type: int
+    - name: Dept
+      description: department number
+      type: int
+    - name: Date
+      description: date of the sale
+      type: date
+    - name: IsHoliday
+      description: is the date a holiday
+      type: varchar(30)

@@ -1,0 +1,5 @@
+models:
+  - name: CatagoricalSummary_01
+    description: This is a model to generate a summary of the catagorical columns in the catagorical_summary table
+    config:
+        columns: ['gender']

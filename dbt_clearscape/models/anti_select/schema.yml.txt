@@ -1,0 +1,9 @@
+models:
+  - name: antiselect_example01
+    description: This will exclude columns from the antiselect clearscape table function
+    config:
+        exclude: ['id', 'orderdate', 'disct', 'province', 'custsegment']
+  - name: antiselect_example02
+    description: This will exclude columns from the antiselect clearscape table function
+    config:
+        exclude: ['id', '[2:3]', 'custname:prodcat']

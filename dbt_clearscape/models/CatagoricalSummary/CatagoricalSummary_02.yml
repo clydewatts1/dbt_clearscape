@@ -1,0 +1,18 @@
+models:
+  - name: CatagoricalSummary_02
+    description: This is a model to generate a summary of the catagorical columns in the catagorical_summary table
+    config:
+        columns: ['gender']
+    columns:
+      - name: 'ColumnName'
+        description: 'The name of the column'
+        tests:
+          - not_null
+      - name: 'DistinctValue'
+        description: 'The number of distinct values in the column'
+        tests:
+          - not_null
+      - name: 'DistinctValueCount'
+        description: 'The number of distinct values in the column'
+        tests:
+          - not_null

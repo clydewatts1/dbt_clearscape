@@ -1,0 +1,58 @@
+version: 2
+seeds:
+- name: features
+  index: "PRIMARY KEY (Store, Date)"
+  description: >
+    This contains the features for the sales forecast model
+  config:
+    schema: RAW
+    enabled: true
+    columns:
+    - name: Store
+      description: store number
+      type: int
+    - name: Date
+      description: date of the sale
+      type: date
+    - name: Temperature
+      description: temperature on the date of sale
+      type: int
+    - name: Fuel_Price
+      description: fuel price on the date of sale
+      type: int
+    - name: MarkDown1
+      description: markdown 1
+      type: int
+    - name: MarkDown2
+      description: markdown 2
+      type: int
+    - name: MarkDown3
+      description: markdown 3
+      type: int
+    - name: MarkDown4
+      description: markdown 4
+      type: int
+    - name: MarkDown5
+      description: markdown 5  
+      type: int  
+    - name: CPI
+      description: consumer price index
+      type: int
+    - name: Unemployment
+      description: unemployment rate
+      type: int
+    - name: IsHoliday
+      description: is the date a holiday
+      type: varchar(30)
+    tests:
+    - unique:
+      - Store
+      - Date
+    - not_null:
+        - Store
+        - Date
+        - Temperature
+        - Fuel_Price
+        - CPI
+        - Unemployment
+        - IsHoliday

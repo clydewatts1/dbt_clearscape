@@ -1,0 +1,27 @@
+# seed for features,stores,test_sales_forecast,train_sales_forecast
+version: 2
+seeds:
+- name: stores
+  index: "PRIMARY KEY (Store)"
+  description: >
+    This contains the store information
+  config:
+    schema: RAW
+    enabled: true
+    columns:
+    - name: Store
+      description: store number
+      type: int
+    - name: Type
+      description: store type
+      type: varchar(30)
+    - name: Size
+      description: store size
+      type: int
+    tests:
+    - unique:
+      - Store
+    - not_null:
+      - Store
+      - Type
+      - Size

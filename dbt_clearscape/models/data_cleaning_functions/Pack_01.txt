@@ -1,0 +1,19 @@
+
+{{
+    config(
+        materialized='view',
+        
+    )
+}}
+
+SELECT * FROM Pack (
+  ON  {{ref('ville_temperature')}}
+  USING
+  Delimiter (',')
+  OutputColumn ('packed_data')
+  IncludeColumnName ('true')
+  TargetColumns ('[1:4]')
+  Accumulate ('sn')
+) AS dt ORDER BY 2;
+
+
