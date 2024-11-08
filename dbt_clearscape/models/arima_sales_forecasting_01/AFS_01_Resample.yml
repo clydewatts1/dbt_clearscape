@@ -1,0 +1,12 @@
+models:
+  - name: AFS_01_Resample
+    description: This is a resample step of the AFS_00_Preprocess model
+    
+    config:
+        materialized: 'ReSample'
+        schema: 'TARGET'
+        SERIES_SPEC:
+        - name: 'orderdate'
+          interval: '1 month'
+          method: 'sum'
+          fill: '0'

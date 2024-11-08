@@ -1,0 +1,52 @@
+
+EXECUTE FUNCTION INTO VOLATILE ART (MA_RES)
+TD_SMOOTHMA (
+    SERIES_SPEC (
+      TABLE_NAME (Orders1_12),
+      SERIES_ID (OrderID),
+      ROW_AXIS (SEQUENCE (SEQ)),
+      PAYLOAD (FIELDS (Qty1), CONTENT (REAL))
+    ),
+    FUNC_PARAMS (
+      WINDOW (5),
+      PAD (4.5555),
+      MA (MEAN),
+      WELL_KNOWN ("5MA")
+    )
+  );
+  
+
+
+EXECUTE FUNCTION INTO VOLATILE ART (MA_RES)
+TD_SMOOTHMA (
+    SERIES_SPEC (
+      TABLE_NAME (Orders1_12),
+      SERIES_ID (OrderID),
+      ROW_AXIS (SEQUENCE (SEQ)),
+      PAYLOAD (FIELDS (Qty1), CONTENT (REAL))
+    ),
+    FUNC_PARAMS (
+      MA (MEAN),
+      WEIGHTS (10, 15, 25, 25, 15, 10)
+    )
+  );
+
+
+EXECUTE FUNCTION INTO VOLATILE ART (MA_RES)
+TD_SMOOTHMA (
+    SERIES_SPEC (
+      TABLE_NAME (Orders1_12mf),
+      SERIES_ID (OrderID),
+      ROW_AXIS (SEQUENCE (SEQ)),
+      PAYLOAD (FIELDS (Qty1, Qty2), CONTENT (MULTIVAR_REAL))
+    ),
+    FUNC_PARAMS (
+      WINDOW (5),
+      MA (MEAN),
+      ONE_SIDED (1)
+    ),
+    OUTPUT_FMT (INDEX_STYLE (FLOW_THROUGH))
+  );  
+  
+
+  

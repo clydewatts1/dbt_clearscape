@@ -1,0 +1,12 @@
+models:
+  - name: AFS_01_Dickey_Fuller_Before
+    description: This is a Dickey Fuller test after Seasonal Normalization , check for stationarity
+    
+    config:
+        materialized: 'Dickey_Fuller'
+        schema: 'TARGET'
+        SERIES_SPEC:
+        - name: 'orderdate'
+          interval: '1 month'
+          method: 'sum'
+          fill: '0'

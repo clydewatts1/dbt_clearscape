@@ -1,0 +1,21 @@
+
+EXECUTE FUNCTION INTO VOLATILE ART (TRANS_SERIES)
+TD_POWERTRANSFORM (
+    SERIES_SPEC (
+      TABLE_NAME (ProductionData),
+      ROW_AXIS (TIMECODE (TD_TIMECODE)),
+      SERIES_ID (ProductID),
+      PAYLOAD (FIELDS (BEER_SALES), CONTENT(REAL))
+    ),
+    FUNC_PARAMS (
+      BACK_TRANSFORM (1),
+      P (0),
+      B (0),
+      LAMBDA (0)
+    ),
+    OUTPUT_FMT (INDEX_STYLE (NUMERICAL_SEQUENCE)
+    )
+  );
+  
+
+

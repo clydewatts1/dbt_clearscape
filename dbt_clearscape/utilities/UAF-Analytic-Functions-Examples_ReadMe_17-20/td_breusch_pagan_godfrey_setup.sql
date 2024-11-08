@@ -1,0 +1,12 @@
+--Setup for TD_BREUSCH_PAGAN_GODFREY:
+EXECUTE FUNCTION INTO VOLATILE ART(Regression_ols)
+TD_MULTIVAR_REGR(
+    SERIES_SPEC(TABLE_NAME(playerRating),ROW_AXIS(SEQUENCE(one)),SERIES_ID(id),
+                PAYLOAD(FIELDS(rating, points, assists, rebounds),
+                CONTENT(MULTIVAR_REAL))) where id = 1,
+    FUNC_PARAMS(FORMULA('Y = a + b*X1 + c*X2 + d*X3'),ALGORITHM('QR'),
+                VARIABLES_COUNT(4),WEIGHTS(0),COEFF_STATS(1),MODEL_STATS(1),
+                RESIDUALS(1)));
+EXECUTE FUNCTION INTO VOLATILE ART(ols_residuals)
+TD_EXTRACT_RESULTS(
+    ART_SPEC(TABLE_NAME(Regression_ols),LAYER(ARTFITRESIDUALS)));

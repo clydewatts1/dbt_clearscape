@@ -3,6 +3,8 @@ sources:
   - name: CS01_RAW
     schema: CS01_RAW
     tables:
+      - name: ageandheight
+      - name: ageandpressure
       - name: aggregate_clicks
       - name: antiselect_test
       - name: attribution_sample_table1
@@ -10,8 +12,20 @@ sources:
       - name: banking_web_clicks
       - name: bank_web_clicks
       - name: betaEncFitTbl
+      - name: BINARYM_COMPLEX_LEFT
+      - name: BINARYM_COMPLEX_RIGHT
+      - name: BINARYM_REALS_LEFT
+      - name: BINARYM_REALS_RIGHT
+      - name: BINARY_COMPLEX_LEFT
+      - name: BINARY_COMPLEX_RIGHT
+      - name: BINARY_REALS_LEFT
+      - name: BINARY_REALS_RIGHT
       - name: bin_titanic_train
+      - name: blood2ageandweight
       - name: boston_data
+      - name: BuoyData2
+      - name: BuoyData_Mix
+      - name: BUOY_TABLE
       - name: cal_housing_ex_raw
       - name: cars_hist
       - name: categoryTable
@@ -28,8 +42,17 @@ sources:
       - name: contingency1
       - name: conversion_event_table
       - name: convertTo_input
+      - name: Convolve2ValidLeft
+      - name: Convolve2ValidRight
+      - name: CONVOLVE2_COMPLEX_LEFT
+      - name: CONVOLVE2_COMPLEX_RIGHT
+      - name: CONVOLVE2_REALS_LEFT
+      - name: CONVOLVE2_REALS_RIGHT
       - name: credit_ex_merged
       - name: decision_predict_output
+      - name: DFFT2Conv_Real_4_4
+      - name: DFFT2_TestMatrix16
+      - name: DFFTConv_Real_8_8
       - name: dfp_housing_test
       - name: dfp_rft_model
       - name: diabetes
@@ -37,13 +60,17 @@ sources:
       - name: dirichletEncFitTbl
       - name: dtp_iris_attribute_output
       - name: dtp_iris_attribute_test
+      - name: dtw_t1
+      - name: dtw_t2
       - name: example_table
       - name: excluding_event_table
       - name: features
       - name: fillrowid_input
       - name: FitInputTable
       - name: FitOutputTable
+      - name: fm_blood2ageandweight
       - name: function_input_table
+      - name: genData
       - name: getCabin
       - name: getFutileColumns_titanic
       - name: GetRows_input_table
@@ -55,8 +82,13 @@ sources:
       - name: glm_admissions_model
       - name: glm_admissions_model2
       - name: glm_housing_model
+      - name: GQ_T1
+      - name: HCONVOLVE_COMPLEX_RIGHT
+      - name: HCONVOLVE_COMPLEX_RIGHTMULTI
       - name: hist_titanic_train
       - name: hist_titanic_train_dim
+      - name: HOUSE_VALUES
+      - name: HOUSE_VALUES2
       - name: housing_full
       - name: housing_sample
       - name: housing_train
@@ -65,6 +97,7 @@ sources:
       - name: housing_train_segment
       - name: impressions
       - name: imputeFit
+      - name: INFLATION
       - name: input_table
       - name: input_tbl
       - name: insect_sprays
@@ -76,6 +109,9 @@ sources:
       - name: model1_table
       - name: model2_table
       - name: model_table
+      - name: mtx1
+      - name: mtx2
+      - name: MVDFFT8
       - name: mytesttable
       - name: nbp_iris_model
       - name: nbtct_complaints
@@ -86,6 +122,10 @@ sources:
       - name: nonLinearCombineFit_input
       - name: nonLinearCombineFit_output
       - name: numApply_input
+      - name: OceanBuoy
+      - name: OceanBuoy2
+      - name: OCEAN_BUOYS
+      - name: OCEAN_BUOYS2
       - name: onehotencodingfit_input
       - name: onehotencodingfit_output
       - name: onehotencoding_input
@@ -95,6 +135,9 @@ sources:
       - name: onehot_titanic_dataset
       - name: onehot_titanic_fit_output
       - name: optional_event_table
+      - name: orders1
+      - name: Orders1_12
+      - name: Orders1_12mf
       - name: ordinalFit_Embarked
       - name: ordinalFit_Gender
       - name: ordinalFit_Title
@@ -104,47 +147,67 @@ sources:
       - name: outlierFilterFit_input
       - name: person_test
       - name: person_train
+      - name: playerRating
       - name: polynomialFeaturesFit_input
       - name: polynomialFit
+      - name: ProductionData
+      - name: ProductionData2
       - name: qqnorm_input_table
       - name: qqnorm_rankTable
       - name: ref_mobile_data_dense
+      - name: RiverData
       - name: roc_input
       - name: roundto_titanic
       - name: rowNormalizeFit_input
       - name: rowNormalizeFit_output
+      - name: Sales
       - name: sales_test
       - name: sales_train
       - name: ScaleFit
       - name: scale_input_table
+      - name: seeds
       - name: sentiment_extract_input
       - name: sentiment_word
       - name: sessionize_table
       - name: simpleimputefit_input
       - name: simpleimputetransform_input
+      - name: SMOOTHED_DATA
+      - name: souvenirtimeseries
+      - name: StockDataSet
       - name: stock_movement
       - name: stopwords_ex
       - name: stores
+      - name: StoreSales
       - name: strApply_input_table
       - name: strsimilarity_input
       - name: svm_iris_input_test
       - name: svm_iris_model
       - name: target_mobile_data_dense
       - name: temporal_orientation_segment
+      - name: TestDFFT8
+      - name: TestPACF12
+      - name: TestRiver
       - name: test_table
       - name: TE_titanic_train
+      - name: TimeSeriesDataSetsD4
       - name: titanicDataset
       - name: titanic_train
+      - name: Traindata
       - name: trans1
       - name: transformations
       - name: tv_spots
       - name: UnivariateStats_titanic_train
       - name: unpack_input
+      - name: US_AirPass
       - name: ville_temperature
+      - name: waveletTable
+      - name: waveletTable2
       - name: whichminmax_titanic_dataset
       - name: wordEmbedModel
       - name: wordEmb_inputTable
       - name: wordEmb_inputTable2
+      - name: XCONVOLVE_COMPLEX_LEFT
+      - name: XCONVOLVE_COMPLEX_LEFTMULTI
       - name: xgboostTest
       - name: xgboostTrain
       - name: xgboost_classification_model

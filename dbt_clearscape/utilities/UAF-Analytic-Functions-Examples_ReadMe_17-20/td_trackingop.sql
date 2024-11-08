@@ -1,0 +1,10 @@
+
+EXECUTE FUNCTION INTO VOLATILE ART(myTrack)
+TD_TRACKINGOP(
+   SERIES_SPEC( TABLE_NAME(TrainTracking),ROW_AXIS(TIMECODE(ArrivalTime)),
+      SERIES_ID(train_id, schedule_date),
+      PAYLOAD (FIELDS(ArrivalTime, DepartureTime, geoTag),
+      CONTENT(MULTIVAR_ANYTYPE)) ),
+   FUNC_PARAMS(DISTANCE(1), SPEED(1), TIME_SPENT(1), METRIC(1))
+);
+
