@@ -6,7 +6,7 @@
 
 ) }}
 SELECT * FROM TD_OutlierFilterFit (
-  ON {{ref("ASF_01_SalesData")}} AS InputTable
+  ON {{ref("AFS_01_SalesData")}} AS InputTable
 --  OUT TABLE OutputTable (outlier_fit)
   USING
   TargetColumns ('Weekly_Sales')

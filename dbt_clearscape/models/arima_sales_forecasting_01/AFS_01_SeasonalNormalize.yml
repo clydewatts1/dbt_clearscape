@@ -6,7 +6,13 @@ models:
         materialized: 'SeasonalNormalize'
         schema: 'TARGET'
         SERIES_SPEC:
-        - name: 'orderdate'
-          interval: '1 month'
-          method: 'sum'
-          fill: '0'
+          row_axis: 'TIMECODE(Sales_Date)'
+          payload: 'FIELDS (Weekly_Sales), CONTENT (REAL)'
+          interval: 'WEEKS(1)'
+          series_id: 'Store_Dept'
+        FUNC_PARAMS:
+          duration: 1
+          unit: WEEKS
+          info: 3
+        OUTPUT_FORMAT:
+          index_style: 'FLOW_THROUGH'

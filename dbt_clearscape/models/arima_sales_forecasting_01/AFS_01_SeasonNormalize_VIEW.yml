@@ -1,0 +1,10 @@
+#
+
+models:
+  - name: AFS_01_SeasonalNormalize_VIEW
+    description: Access view for AFS_01_SeasonalNormalize       
+    config:
+        materialized: 'view'
+        schema: 'TARGET_VIEW'
+        alias: AFS_01_SeasonalNormalize
+ 

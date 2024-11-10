@@ -6,7 +6,15 @@ models:
         materialized: 'ReSample'
         schema: 'TARGET'
         SERIES_SPEC:
-        - name: 'orderdate'
-          interval: '1 month'
-          method: 'sum'
-          fill: '0'
+          row_axis: 'TIMECODE(Sales_Date)'
+          payload: 'FIELDS (Weekly_Sales), CONTENT (REAL)'
+          series_id: 'Store_Dept'
+        FUNC_PARAMS:
+          result_series:
+            type: 'TIMECODE'
+            start_value: 'DATE ''2010-02-05'''
+            duration: 'WEEKS(1)'
+          interpolate: 'LINEAR'
+        OUTPUT_FORMAT:
+          index_style: 'FLOW_THROUGH'
+

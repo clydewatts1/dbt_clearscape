@@ -6,6 +6,6 @@
 
 ) }}
 SELECT * FROM TD_OutlierFilterTransform (
-  ON {{ref("ASF_01_SalesData")}} AS InputTable PARTITION BY ANY 
+  ON {{ref("AFS_01_SalesData")}} AS InputTable PARTITION BY ANY 
   ON {{ref("AFS_01_Outlier_FIT_VIEW")}} AS FitTable DIMENSION
 ) AS dt

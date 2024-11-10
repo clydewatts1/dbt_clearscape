@@ -6,4 +6,4 @@
     description='This is the outlier fit model view for the ARIMA forecasting model'
 
 ) }}
-SELECT * FROM {{ ref("ASF_01_Outlier_FIT") }}
+SELECT * FROM {{ ref("AFS_01_Outlier_FIT") }}
