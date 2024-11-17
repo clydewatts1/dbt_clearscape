@@ -1,0 +1,14 @@
+version: 2
+
+macros:
+  - name: ACF
+    description: >
+      This macro is used to calculate the ACF (Auto Correlation Function) of a time series.
+      The ACF is a measure of the correlation between the time series and a lagged version of itself. 
+      The ACF is a powerful tool for identifying the presence of seasonality in a time series.
+
+    docs:
+      show: true
+    meta: 
+      type: macro
+      tags: [clearscape]

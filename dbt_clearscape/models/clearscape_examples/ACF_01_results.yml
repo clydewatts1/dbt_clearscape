@@ -1,0 +1,24 @@
+models:
+  - name: ACF_01_results
+    description: This is the result of the ACF calculation for the time series
+    
+    config:
+        materialized: 'ACF'
+        schema: 'TARGET'
+        SERIES_SPEC:
+          row_axis: 'SEQUENCE(N_SeqNo)'
+          PAYLOAD:
+            FIELDS: 
+              - 'MAGNITUDE'
+            CONTENT: 
+              - 'REAL'
+          series_id: 'BuoyID'
+        FUNC_PARAMS:
+            maxlags: 6
+            func_type: 0
+            unbiased: 0
+            demean: 1
+            qstat: 1
+            alpha: 0.1
+
+         

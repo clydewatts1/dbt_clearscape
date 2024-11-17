@@ -5,8 +5,5 @@ models:
     config:
         materialized: 'ArimaForecast'
         schema: 'TARGET'
-        SERIES_SPEC:
-        - name: 'orderdate'
-          interval: '1 month'
-          method: 'sum'
-          fill: '0'
+        FUNC_PARAMS:
+          forcast_periods: 12

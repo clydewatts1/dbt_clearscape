@@ -18,6 +18,8 @@ FUNC_PARAMS(ALGORITHM('NONE')));
   {%- set target_relation = api.Relation.create(
         identifier=this.identifier, schema=this.schema, database=this.database,
         type='table') -%}
+  {%- set FUNC_PARAMS=config.get('FUNC_PARAMS') -%}
+  {%- set SERIES_SPEC=config.get('SERIES_SPEC') -%}
 
   -- ... setup database ...
   -- ... run pre-hooks...
@@ -34,12 +36,14 @@ FUNC_PARAMS(ALGORITHM('NONE')));
   */
  {{ART_EXECUTE_FUNCTION_HEAD(target_relation) }}
 TD_DICKEY_FULLER(
-SERIES_SPEC(
-    TABLE_NAME ({{sql}}), 
-    ROW_AXIS (TIMECODE(Sales_Date)), 
-    PAYLOAD (FIELDS (Weekly_Sales), CONTENT (REAL)), 
-    SERIES_ID (Store_Dept)) ,
-FUNC_PARAMS(ALGORITHM('NONE'))
+	{{  SERIES_SPEC_BODY(SERIES_SPEC) }}
+    ,
+  FUNC_PARAMS(
+    ALGORITHM({{FUNC_PARAMS.algorithm}})
+    {%- if FUNC_PARAMS.max_lag %}}
+    , MAXLAGS( {{FUNC_PARAMS.max_lag}} )
+    {%- endif -%}
+    )
 {{ART_EXECUTE_FUNCTION_TAIL() }}
   {%- endcall %}
   

@@ -30,7 +30,20 @@ SERIES_SPEC(
         the FIELDS entries represent response_variable, explanatory_variable, explanatory_variable,
          and so on, respectively.
     */
-    PAYLOAD ({{series_spec.payload}}), 
+
+    PAYLOAD(
+        FIELDS (
+    {%- for line in series_spec.PAYLOAD.FIELDS -%}
+        {{line}}{% if not loop.last %},{% endif %}
+    {%- endfor -%}
+        ),
+        CONTENT (
+    {%- for line in series_spec.PAYLOAD.CONTENT -%}
+        {{line}}{% if not loop.last %},{% endif %}
+    {%- endfor -%}
+        )
+    ),
+
     {% if series_spec.interval is defined %}
     /*
     INTERVAL
@@ -61,4 +74,54 @@ EXECUTE FUNCTION  TD_EXTRACT_RESULTS(
           ,LAYER({{layer}})
           )
 )
+{%- endmacro -%}
+
+{#----------------------------------------------------------------------------------------------------
+Macro: ART
+The confidence level for the prediction, such that 85
+ART_SPEC (
+TABLE_NAME ( [ database-name . ] table-name ) ,
+[ ID_SEQUENCE ( instance-identifier-list-json-string ) , ]
+[ PAYLOAD (
+FIELDS ( field-list ) ,
+CONTENT ( { REAL | COMPLEX | AMPL_PHASE | AMPL_PHASE_RADIANS |
+AMPL_PHASE_DEGREES | MULTIVAR_REAL | MULTIVAR_COMPLEX |
+MULTIVAR_ANYTYPE | MULTIVAR_AMPL_PHASE |
+MULTIVAR_AMPL_PHASE_RADIANS | MULTIVAR_AMPL_PHASE_DEGREES } )
+) , ]
+[LAYER ( layer-name ) ]
+);
+------------------------------------------------------------------------------------------------------#}
+{%- macro ART_SPEC_BODY(series_spec) -%}
+    ART_SPEC (
+        /* TABLE_NAME:
+            The source of the data. It is an ART.
+        */
+        TABLE_NAME ( {{sql}}) 
+        {%- if art_spec.id_sequence is defined -%}
+        /* ID_SEQUENCE:
+            [Dependencies: This parameter is only used with the TD_PLOT function.] A sequence of
+            series or matrixes to plot. The ID_SEQUENCE contains a JSON object with name-value
+            pairs. Each name corresponds to an identifier field with its associated value indicating the
+            desired values.        
+        */
+
+        ,ID_SEQUENCE ( {{art_spec.id_sequence}} ) 
+        {%- endif -%}
+        {%- if art_spec.payload is defined -%}
+        /*
+        PAYLOAD:
+            Dependencies: Time series functions that accept or require an ART_SPEC include
+            information in their Syntax section.] The PAYLOAD consists of the fields comprising the
+            elements of the series or matrix, and descriptions of their contents. 
+        */
+        ,PAYLOAD ({{art_spec.payload}}) 
+        {%- endif -%}
+        {%- if art_spec.layer is defined -%}
+        ,LAYER ({{art_spec.layer}})
+        {%- endif -%}        
+
+);
+
+
 {%- endmacro -%}

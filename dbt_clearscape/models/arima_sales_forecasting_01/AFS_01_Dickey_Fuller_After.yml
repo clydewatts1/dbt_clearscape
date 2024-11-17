@@ -6,7 +6,12 @@ models:
         materialized: 'Dickey_Fuller'
         schema: 'TARGET'
         SERIES_SPEC:
-        - name: 'orderdate'
-          interval: '1 month'
-          method: 'sum'
-          fill: '0'
+          row_axis: 'TIMECODE(Sales_Date)'
+          PAYLOAD:
+            FIELDS: 
+              - 'Weekly_Sales'
+            CONTENT: 
+              - 'REAL'
+          series_id: 'Store_Dept'
+        FUNC_PARAMS:
+          algorithm: 'NONE'

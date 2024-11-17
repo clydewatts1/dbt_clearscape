@@ -7,7 +7,12 @@ models:
         schema: 'TARGET'
         SERIES_SPEC:
           row_axis: 'TIMECODE(Sales_Date)'
-          payload: 'FIELDS (Weekly_Sales), CONTENT (REAL)'
+          #payload: 'FIELDS (Weekly_Sales), CONTENT (REAL)'
+          PAYLOAD:
+            FIELDS: 
+              - 'Weekly_Sales'
+            CONTENT: 
+              - 'REAL'
           series_id: 'Store_Dept'
         FUNC_PARAMS:
           result_series:

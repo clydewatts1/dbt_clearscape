@@ -1,9 +1,9 @@
 models:
-  - name: AFS_01_Dickey_Fuller_Before
-    description: This is a Dickey Fuller test after Seasonal Normalization , check for stationarity
+  - name: AFS_01_ACF_Before
+    description: This is a ACF
     
     config:
-        materialized: 'Dickey_Fuller'
+        materialized: 'ACF'
         schema: 'TARGET'
         SERIES_SPEC:
           row_axis: 'TIMECODE(Sales_Date)'
@@ -15,4 +15,9 @@ models:
               - 'REAL'
           series_id: 'Store_Dept'
         FUNC_PARAMS:
-          algorithm: 'NONE'
+            maxlags: 6
+            func_type: 0
+            unbiased: 0
+            demean: 1
+            qstat: 1
+            alpha: 0.1
