@@ -1,16 +1,33 @@
 {# This is a protype resample
 
-
-      
-
-EXECUTE FUNCTION INTO ART("CS01_TARGET"."AFS_01_AUTOARIMA") TD_AUTOARIMA(
-SERIES_SPEC(
-    TABLE_NAME ("CS01_TARGET_VIEW"."AFS_01_SeasonalNormalize"), 
-    ROW_AXIS (TIMECODE(Sales_Date)), 
-    PAYLOAD (FIELDS (Weekly_Sales), CONTENT (REAL)), 
-    SERIES_ID (Store_Dept)) ,
-FUNC_PARAMS(MAX_PQ_SEASONAL(2, 2), RESIDUALS(1)),
-OUTPUT_FMT(INDEX_STYLE(FLOW_THROUGH)));
+Syntax:
+      TD_ARIMAESTIMATE
+(
+SERIES_SPEC
+[ , SERIES_SPEC | ART_SPEC],
+FUNC_PARAMS (
+NONSEASONAL (
+MODEL_ORDER ( p-value , d-value , q-value )
+)
+[ , SEASONAL (
+MODEL_ORDER ( P-value , D-value , Q-value )
+, PERIOD ( integer ) ) ]
+[ , LAGS (
+AR ( p-length-lag-list ) ,
+SAR ( P-length-lag-list ) ,
+MA ( q-length-lag-list ) ,
+SMA ( Q-length-lag-list )
+) ]
+[ , INIT (p+q+P+Q+CONSTANT-length-init-list ) ]
+[ , FIXED ( p+q+P+Q+CONSTANT-length-fixed-list ) ]
+, CONSTANT ( { 1 | 0 } )
+, ALGORITHM ( { OLE | MLE | MLE_CSS | CSS } )
+[ , COEFF_STATS ( integer ) ]
+[ , MAX_ITERATIONS ( integer ) ]
+[ , FIT_PERCENTAGE ( integer ) ]
+[ , FIT_METRICS ( { 1 | 0 } ) ]
+[ , RESIDUALS ( { 1 | 0 } ) ]
+)
 
 #}
 
@@ -19,7 +36,9 @@ OUTPUT_FMT(INDEX_STYLE(FLOW_THROUGH)));
   {%- set target_relation = api.Relation.create(
         identifier=this.identifier, schema=this.schema, database=this.database,
         type='table') -%}
-
+  {%- set FUNC_PARAMS=config.get('FUNC_PARAMS') -%}
+  {%- set SERIES_SPEC=config.get('SERIES_SPEC') -%}
+  {# TODO : Configure second parameter #}
   -- ... setup database ...
   -- ... run pre-hooks...
 {{ drop_relation_if_exists(target_relation) }}
@@ -35,20 +54,17 @@ OUTPUT_FMT(INDEX_STYLE(FLOW_THROUGH)));
   */
 
 {{ART_EXECUTE_FUNCTION_HEAD(target_relation) }}
-EXECUTE FUNCTION INTO ART("CS01_TARGET"."AFS_01_AutoArima_Forecast") TD_ARIMAFORECAST(
-ART_SPEC(
-    TABLE_NAME ({{sql}})) ,
-FUNC_PARAMS(FORECAST_PERIODS(12)),
-OUTPUT_FMT(INDEX_STYLE(FLOW_THROUGH)));
+TD_ARIMAESTIMATE(
+	{{  SERIES_SPEC_BODY(SERIES_SPEC) }}
+  ,
+  FUNC_PARAMS(
+    NONSEASONAL(
+      MODEL_ORDER({{FUNC_PARAMS.MODEL_ORDER}})
+    )
 
-TD_AUTOARIMA(
-SERIES_SPEC(
-    TABLE_NAME ({{sql}}), 
-    ROW_AXIS (TIMECODE(Sales_Date)), 
-    PAYLOAD (FIELDS (Weekly_Sales), CONTENT (REAL)), 
-    SERIES_ID (Store_Dept)) ,
-FUNC_PARAMS(MAX_PQ_SEASONAL(3, 3), RESIDUALS(1),STATIONARY(1),STEPWISE(0),ARMA_ROOTS(1),MAX_ITERATIONS(10)),
-OUTPUT_FMT(INDEX_STYLE(FLOW_THROUGH))
+
+  )
+  )
 {{ART_EXECUTE_FUNCTION_TAIL() }}
   {%- endcall %}
 

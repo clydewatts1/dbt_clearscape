@@ -1,0 +1,24 @@
+
+  - name: ARE_01_ArimaEstimate
+    description: This is a arima estimate model
+    
+    config:
+        materialized: 'ArmaEstimate'
+        schema: 'TARGET'
+        SERIES_SPEC:
+          row_axis: 'SEQUENCE(ROW_I)'
+          PAYLOAD:
+            FIELDS: 
+              - 'OUT_OUT_sales'
+            CONTENT: 
+              - 'REAL'
+          series_id: 'seriesID AS SID'
+        FUNC_PARAMS:
+            nonseasonal:
+                model_order: [1, 0, 0]
+            constant: 0
+            algorithm: 'MLE'
+            coeff_stats: 1
+            fit_metrics: 1
+            residuals: 1
+            fit_percentage: 80

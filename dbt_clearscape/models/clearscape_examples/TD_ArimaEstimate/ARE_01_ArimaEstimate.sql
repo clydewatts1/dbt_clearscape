@@ -1,0 +1,1 @@
+SELECT * FROM {{source('CS01_RAW', 'diff12_souv')}};
