@@ -1,9 +1,9 @@
-
+models:
   - name: ARE_01_ArimaEstimate
     description: This is a arima estimate model
     
     config:
-        materialized: 'ArmaEstimate'
+        materialized: 'ArimaEstimate'
         schema: 'TARGET'
         SERIES_SPEC:
           row_axis: 'SEQUENCE(ROW_I)'
@@ -15,7 +15,10 @@
           series_id: 'seriesID AS SID'
         FUNC_PARAMS:
             nonseasonal:
-                model_order: [1, 0, 0]
+                model_order:
+                    p: 1
+                    d: 1
+                    q: 1
             constant: 0
             algorithm: 'MLE'
             coeff_stats: 1

@@ -1,0 +1,6 @@
+models:
+  - name: test_databases
+    description: This is the result of the ACF calculation for the time series
+    
+    config:
+        materialized: 'target_view_merge'

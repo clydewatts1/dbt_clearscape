@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: dbc # required
+    description: This is teradata data dictionary dbc
+    schema: dbc
+    loader: 'database data dictionary'
+    tables:
+      - name: DatabasesV
+        description: This is the database view
+        columns:
+          - name: DatabaseName
+            description: The name of the database
+          - name: OwnerName
+            description: Owner Name
+          - name: CreateTimeStamp
+            description: The time the database was created
+          - name: LastAlterTimeStamp
+            description: The time the database was last altered

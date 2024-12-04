@@ -1,0 +1,35 @@
+models:
+  - name: full_apply_02
+    description: This is the result of the ACF calculation for the time series
+    
+    config:
+        materialized: 'full_apply'
+        schema: 'TARGET'
+        target_schema: 'TARGET'
+        target_table: 'full_apply_database'
+        # This is the key that will be used to join the data with the transformation key
+        trasformation_key:
+            - 'databasename'
+        tracking_end_ts_bound_type: 'inclusive'
+        tracking_column_type: 'DATE'
+        from_tracking_column: 'START_DATE'
+        to_tracking_column: 'END_DATE'
+        run_id_column: 'RUN_ID'
+        job_id_column: 'JOB_ID'
+        logical_delete_column: RECORD_DEL_IND
+    # TThe constaints are used in creating the table and validated the 
+    # data in the table
+    columns:
+      - name: databasename
+        description: The name of the database
+        constraints:
+          - type: not_null
+        data_tests:
+          - unique
+          - not_null
+      - name: ownername
+        description: Owner Name
+        data_tests:
+          - not_null
+        constraints:
+          - type: not_null

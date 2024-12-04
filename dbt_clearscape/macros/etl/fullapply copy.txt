@@ -1,0 +1,250 @@
+{%- materialization with_load_ts, adapter = "teradata" %}
+{#
+FULL APPLY: This macro is used to apply the full load of a table. It will create a temporary table with the same structure as the target table, load the data into it, and then insert the data into the target table. It will also add a column with the current timestamp to the target table to track when the data was loaded.
+Configuration:
+- target: The target table to load the data into.
+- pre_hooks: A list of SQL statements to run before loading the data.
+- post_hooks: A list of SQL statements to run after loading the data.
+- grant_config: A dictionary of grant configurations to apply to the target table.
+- transformat_key: The key to use to determine if the data should be appended or replaced.
+- from_ts_column: The column from which the row is valid.
+- to_ts_column: The column to which the row is valid.
+- logical_delete_column: The column to use to determine if a row is logically deleted.
+- load_ts_column: The column to use to track when the data was loaded.
+- check_columns: A list of columns to use to determine if the data has changed.
+- ignore_columns: A list of columns to ignore when determining if the data has changed.
+- update_columns: A list of columns to update when the data has changed.
+- materialized_columns: A list of columns to materialize.
+- logic_deletes_on: Yes or No to determine if the table has logical deletes.
+- continous_or_discrete: Continuous or Discrete to determine if the table has continuous or discrete timestamps.
+- time_grain: The time grain to use when determining if the data has changed. DATE or TIMESTAMP.
+
+
+Usage:
+{{
+    config(
+        target='my_table',
+        pre_hooks=[
+            'DELETE FROM my_table WHERE load_ts IS NULL;'
+        ],
+        post_hooks=[
+            'UPDATE my_table SET load_ts = NULL;'
+        ],
+        grant_config={
+            'roles': ['role1', 'role2'],
+            'privileges': ['SELECT', 'INSERT', 'UPDATE', 'DELETE']
+        },
+        transform_key='id',
+        from_ts_column='valid_from',
+        to_ts_column='valid_to',
+        logical_delete_column='is_deleted',
+        load_ts_column='load_ts',
+        check_columns=['name', 'age'],
+        ignore_columns=['created_at', 'updated_at'],
+        update_columns=['name', 'age'],
+        materialized_columns=['name', 'age']
+    )
+}}
+#}
+
+
+    
+    {%- set target = config.target -%}
+    {%- set pre_hooks = config.get('pre_hooks', []) -%}
+    {%- set post_hooks = config.get('post_hooks', []) -%}
+    {%- set grant_config = config.get('grant_config', {}) -%}
+    {%- set transformat_key = config.required('transform_key') -%}
+    {%- set from_ts_column = config.get('from_ts_column', '_etl_from_ts') -%}
+    {%- set to_ts_column = config.get('to_ts_column', '_etl_to_ts') -%}
+    {%- set logical_delete_column = config.get('logical_delete_column', '_etl_logical_delete') -%}
+    {%- set load_ts_column = config.get('load_ts_column', '_etl_load_ts') -%}
+    {%- set check_columns = config.get('check_columns', []) -%}
+    {%- set ignore_columns = config.get('ignore_columns', []) -%}
+    {%- set update_columns = config.get('update_columns', []) -%}
+    {%- set materialized_columns = config.get('materialized_columns', []) -%}
+    
+    {%- set target_relation = target -%}
+    {%- set temp_relation = make_temp_relation(target_relation) -%}
+    
+    {%- set existing = load_cached_relation(target_relation) -%}
+    {%- if existing is none or should_full_refresh() -%}
+        {%- set build_sql = with_load_ts_initial_sql(
+            temp_relation, target_relation, sql, load_ts_column
+        ) -%}
+    {%- else -%}
+        {%- set build_sql = with_load_ts_append_sql(
+            temp_relation, target_relation, sql, load_ts_column
+        ) -%}
+    {%- endif -%}
+
+{%- set model = target.model -%}
+{%- set sql = model.get('raw_sql') -%}
+
+{%- set existing_relation = target.alias -%}
+
+{%- set config = target.get('config', {}) -%}
+
+{%- set materialization_strategy = config.get('materialization_strategy', 'table') -%}
+
+{%- set materialized = adapter.get_materialized_columns(target) -%}
+
+{%- set materialization = target.get('materialized', {}) -%}
+
+{%- set materialization_strategy = materialization.get('strategy', 'table') -%}
+
+{%- set materialized_columns = materialization.get('columns', []) -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns + materialized -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set material
+
+{%- set pre_hooks = [] -%}
+{%- set post_hooks = [] -%}
+{%- set grant_config = {} -%}
+
+{%- set model = target.model -%}
+{%- set sql = model.get('raw_sql') -%}
+
+{%- set existing_relation = target.alias -%}
+
+{%- set config = target.get('config', {}) -%}
+
+{%- set materialization_strategy = config.get('materialization_strategy', 'table') -%}
+
+{%- set materialized = adapter.get_materialized_columns(target) -%}
+
+{%- set materialization = target.get('materialized', {}) -%}
+
+{%- set materialization_strategy = materialization.get('strategy', 'table') -%}
+
+{%- set materialized_columns = materialization.get('columns', []) -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns + materialized -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+{%- set materialized_columns = materialized_columns | map(attribute='name') -%}
+
+{%- set materialized_columns = materialized_columns | list -%}
+
+    {% set target_relation = this %}
+    {% set temp_relation = make_temp_relation(target_relation) %}
+
+    {% set load_ts_column = config.get("load_ts_column", default="_etl_load_ts") %}
+
+    {% set existing = load_cached_relation(target_relation) %}
+    {% if existing is none or should_full_refresh() %}
+        {% set build_sql = with_load_ts_initial_sql(
+            temp_relation, target_relation, sql, load_ts_column
+        ) %}
+    {% else %}
+        {% set build_sql = with_load_ts_append_sql(
+            temp_relation, target_relation, sql, load_ts_column
+        ) %}
+    {% endif %}
+
+    -- Run pre hooks
+    {{ run_hooks(pre_hooks) }}
+
+    -- Execute SQL
+    {% call statement("main") %} {{ build_sql }} {% endcall %}
+
+    -- Run pre hooks
+    {{ run_hooks(post_hooks) }}
+
+    {% set should_revoke = should_revoke(
+        existing_relation, full_refresh_mode=should_full_refresh()
+    ) %}
+    {% do apply_grants(target_relation, grant_config, should_revoke=should_revoke) %}
+
+    {% do persist_docs(target_relation, model) %}
+
+    {{ return({"relations": [target_relation]}) }}
+
+{% endmaterialization -%}
+
+
+{% macro with_load_ts_initial_sql(
+    temp_relation, target_relation, sql, load_ts_column
+) %}
+    {{- get_create_table_as_sql(true, temp_relation, sql) -}}
+
+    {% set etl_load_ts_sql %}
+    select
+        *,
+        current_timestamp() as {{ load_ts_column }}
+    from {{ temp_relation }}
+    {% endset %}
+
+    {{- get_create_table_as_sql(false, target_relation, etl_load_ts_sql) -}}
+{% endmacro %}
+
+
+{% macro with_load_ts_append_sql(temp_relation, target_relation, sql, load_ts_column) %}
+    {{- get_create_table_as_sql(true, temp_relation, sql) -}}
+    {%- set target_columns = adapter.get_columns_in_relation(target_relation) -%}
+
+    {% set quoted_csv_columns = get_quoted_csv(
+        target_columns | map(attribute="name")
+    ) %}
+
+    insert into {{ target_relation }} ({{ quoted_csv_columns }})
+    select
+        *,
+        current_timestamp() as {{ load_ts_column }}
+    from {{ temp_relation }}
+{% endmacro %}

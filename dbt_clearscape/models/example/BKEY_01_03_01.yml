@@ -1,0 +1,57 @@
+models:
+  - name: BKEY_01_03_01
+    description: This is the result of the ACF calculation for the time series
+    
+    config:
+        materialized: 'BKEY'
+        schema: 'TARGET_VIEW'
+        alias: 'BKEY_01_03_01_out'
+        surrogate_key_target_schema: 'TARGET'
+        surrogate_key_target_table: 'BKEY_DATABASES'
+        # default to EDW_KEY
+        surrogate_key_id_column: 'BKEY_DATABASES_ID'
+        # default to Natural_KEY
+        surrogate_key_natural_column_list: ['DATABASENAME']
+        surrogate_key_natural_column_type: ['VARCHAR(255)']
+        # surrogate key table seperate if columns combined then use a seperator
+        surrogate_key_table_seperator: '_'
+        # Secondary Natural Key columns list to be used in the lookup
+        # This is used to store the natural key columns if they are split
+        # Domain ID is the namespace or domain id
+        surrogate_key_domain_column : 'DOMAIN_ID'
+        surrogate_key_domain_type: 'SMALLINT'
+        # namespace or domain id
+        surrogate_key_domain_id: 01
+        # key set id
+        surrogate_key_set_column: 'KEY_SET_ID'
+        surrogate_key_set_type: 'SMALLINT'
+        surrogate_key_set_id: 01
+        # temp database name
+        temp_schema: 'TARGET'
+        # trans table
+        temp_trans_table: 'BKEY_01_03_01_trans'
+        # validation table
+        temp_val_table: 'BKEY_01_03_01_valid'
+        # This is the key that will be used to join the data with the transformation key
+        tracking_end_ts_bound_type: 'inclusive'
+        tracking_column_type: 'DATE'
+        from_tracking_column: 'START_DATE'
+        to_tracking_column: 'END_DATE'
+        tracking_high_date: 'date ''9999-12-31'''
+        tracking_low_date: 'date ''1900-01-01'''
+        run_id_column: 'RUN_ID'
+        job_id_column: 'JOB_ID'
+        logical_delete_column: RECORD_DEL_IND
+        logical_delete_type: 'CHAR(1)'
+        logical_delete_yes: '''Y'''
+        logical_delete_no: '''N'''
+        
+    # TThe constaints are used in creating the table and validated the 
+    # data in the table
+    columns:
+      - name: databasename
+        description: The name of the database
+      - name: ownername
+        description: Owner Name
+        constraints:
+          - type: not_null
